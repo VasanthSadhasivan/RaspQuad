@@ -1,4 +1,4 @@
-package com.vasanthsadhasivan.dev.quadcopterwifi;
+package com.vasanthsadhasivan.dev.quadcopterwifi.Activity;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.vasanthsadhasivan.dev.quadcopterwifi.Async.ClientAsync;
+import com.vasanthsadhasivan.dev.quadcopterwifi.R;
 import com.vasanthsadhasivan.dev.quadcopterwifi.Views.JoystickView;
 
 import java.net.Socket;

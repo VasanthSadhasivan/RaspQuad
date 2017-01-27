@@ -1,23 +1,13 @@
 package com.vasanthsadhasivan.dev.quadcopterwifi.Async;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.vasanthsadhasivan.dev.quadcopterwifi.MainActivity;
+import com.vasanthsadhasivan.dev.quadcopterwifi.Activity.MainActivity;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 

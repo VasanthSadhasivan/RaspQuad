@@ -1,9 +1,10 @@
-package com.vasanthsadhasivan.dev.quadcopterwifi;
+package com.vasanthsadhasivan.dev.quadcopterwifi.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.vasanthsadhasivan.dev.quadcopterwifi.R;
 import com.vasanthsadhasivan.dev.quadcopterwifi.Views.JoystickView;
 
 /**
