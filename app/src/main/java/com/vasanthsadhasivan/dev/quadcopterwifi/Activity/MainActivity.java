@@ -1,6 +1,8 @@
 package com.vasanthsadhasivan.dev.quadcopterwifi.Activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         joystickView1 = (JoystickView) findViewById(R.id.joystick1);
         joystickView2 = (JoystickView) findViewById(R.id.joystick2);
         joystickView1.setOnJoystickMoveListener(new JoystickView.OnJoystickMoveListener() {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 if(previousValueX1 == x && previousValueY1 == y){
                     return;
                 }
+                v.vibrate(20);
                 if(previousValueX1 != x){
                     switchValues.put("yaw", x);
                     String[] data = {"yaw"};
@@ -69,11 +72,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 if(angle < 0){
                     angle = 360+angle;
                 }
-                int x = (int)((((int)Math.cos(Math.toRadians(angle))*power)+100)*0.9);
-                int y = (int)((((int)Math.sin(Math.toRadians(angle))*power)+100)*0.9);
+                int x = (int)((((int)((Math.cos(Math.toRadians(angle))*power)/2))*2+100)*0.9);
+                int y = (int)((((int)((Math.sin(Math.toRadians(angle))*power)/2))*2+100)*0.9);
                 if(previousValueX2 == x && previousValueY2 == y){
                     return;
                 }
+                v.vibrate(20);
                 if(previousValueX2 != x){
                     switchValues.put("roll", x);
                     String[] data = {"roll"};
@@ -90,11 +94,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         }, JoystickView.DEFAULT_LOOP_INTERVAL);
 
         ClientAsync.client = new Socket();
-        seekBars.put("throttle", (SeekBar) findViewById(R.id.throttle));
-        seekBars.put("yaw", (SeekBar) findViewById(R.id.yaw));
-        seekBars.put("pitch", (SeekBar) findViewById(R.id.pitch));
-        seekBars.put("roll", (SeekBar) findViewById(R.id.roll));
-        seekBars.put("flmswitch", (SeekBar) findViewById(R.id.flmswitch));
+
         seekBars.put("aux", (SeekBar) findViewById(R.id.aux));
 
         for (Object key : seekBars.keySet()) {

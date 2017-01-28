@@ -27,14 +27,11 @@
                 android:text="Aux"
                 android:textAlignment="center" />
 
-            <SeekBar
+            <com.vasanthsadhasivan.dev.quadcopterwifi.Views.VerticalSeekBar
                 android:id="@+id/aux"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="180"
-                android:rotation="270"
-                android:progress="0" />
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
 
