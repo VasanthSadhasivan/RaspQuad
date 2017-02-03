@@ -8,12 +8,33 @@
     tools:context="com.vasanthsadhasivan.dev.quadcopterwifi.Activity.MainActivity">
 
 
+    <LinearLayout
+        android:layout_toRightOf="@id/inputButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:weightSum="2">
+
+        <com.vasanthsadhasivan.dev.quadcopterwifi.Views.JoystickView
+            android:id="@+id/joystick1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.vasanthsadhasivan.dev.quadcopterwifi.Views.JoystickView
+            android:id="@+id/joystick2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/inputButtons"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:id="@+id/seekBars"
@@ -84,25 +105,5 @@
                 android:text="Off" />
         </LinearLayout>
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_toRightOf="@id/inputButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:weightSum="2">
-
-        <com.vasanthsadhasivan.dev.quadcopterwifi.Views.JoystickView
-            android:id="@+id/joystick1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <com.vasanthsadhasivan.dev.quadcopterwifi.Views.JoystickView
-            android:id="@+id/joystick2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
 
 </RelativeLayout>
