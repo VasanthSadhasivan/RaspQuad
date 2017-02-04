@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         joystickView1 = (JoystickView) findViewById(R.id.joystick1);
         joystickView2 = (JoystickView) findViewById(R.id.joystick2);
+        joystickView1.stay=true;
         joystickView1.setOnJoystickMoveListener(new JoystickView.OnJoystickMoveListener() {
             @Override
             public void onValueChanged(int angle, int power, int direction) {

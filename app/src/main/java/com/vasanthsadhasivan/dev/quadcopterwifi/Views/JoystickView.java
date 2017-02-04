@@ -25,8 +25,9 @@ public class JoystickView extends View implements Runnable {
     private long loopInterval = 100L;
     private int xPosition = 0;
     private int yPosition = 0;
+    public boolean stay = false;
     private double centerX = 0.0D;
-    private double centerY = 0.0D;
+    public double centerY = 0.0D;
     private Paint mainCircle;
     private Paint secondaryCircle;
     private Paint button;
@@ -117,10 +118,16 @@ public class JoystickView extends View implements Runnable {
 
         this.invalidate();
         if(event.getAction() == 1) {
-            this.xPosition = (int)this.centerX;
-            this.yPosition = (int)this.centerY;
-            this.thread.interrupt();
-            this.onJoystickMoveListener.onValueChanged(this.getAngle(), this.getPower(), this.getDirection());
+            if(!this.stay) {
+                this.xPosition = (int) this.centerX;
+                this.yPosition = (int) this.centerY;
+                this.thread.interrupt();
+                this.onJoystickMoveListener.onValueChanged(this.getAngle(), this.getPower(), this.getDirection());
+            }else{
+                this.xPosition = (int) this.centerX;
+                this.thread.interrupt();
+                this.onJoystickMoveListener.onValueChanged(this.getAngle(), this.getPower(), this.getDirection());
+            }
         }
 
         if(this.onJoystickMoveListener != null && event.getAction() == 0) {
