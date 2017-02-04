@@ -15,15 +15,16 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    String incoming = Serial.readStringUntil('\n');
+    String data = Serial.readStringUntil('\n');
     translateString(data);
   }
 }
 
 void translateString(String data){
-    String stickName = incoming.substring(0,incoming.indexOf(' '));
-    int power = (incoming.substring(incoming.indexOf(' '))).toInt();
-    switch (stickName){
+    String stickName = data.substring(0,data.indexOf(' '));
+    int power = (data.substring(data.indexOf(' '))).toInt();
+    Serial.println(stickName + " " + power);
+    /*switch (stickName){
       case "c1":
         c1.write(power);
       case "c2":
@@ -38,6 +39,6 @@ void translateString(String data){
         c6.write(power);   
       case "c7":
         c7.write(power);   
-    }
+    }*/
 }
 

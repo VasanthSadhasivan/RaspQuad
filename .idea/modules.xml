@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RaspQuad.iml" filepath="$PROJECT_DIR$/RaspQuad.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RaspCopter.iml" filepath="$PROJECT_DIR$/RaspCopter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
