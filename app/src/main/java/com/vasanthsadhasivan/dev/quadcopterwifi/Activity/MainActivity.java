@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     int previousValueY1;
     int previousValueY2;
     //throttle   c1
-    //yaw        c2
+    //yaw        c6
     //roll       c3
     //pitch      c4
-    //aux        c5
+    //aux        c2
     JoystickView joystickView1, joystickView2;
     public String TAG = "MainActivity";
     public static HashMap seekBars = new HashMap();
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 }
                 v.vibrate(20);
                 if(previousValueX1 != x){
-                    switchValues.put("c2", x);
-                    String[] data = {"c2"};
+                    switchValues.put("c6", x);
+                    String[] data = {"c6"};
                     (new ClientAsync()).execute(data);
                 }
                 if(previousValueY1 != y){
@@ -101,18 +101,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         ClientAsync.client = new Socket();
 
-        seekBars.put("c5", (SeekBar) findViewById(R.id.c5));
+        seekBars.put("c2", (SeekBar) findViewById(R.id.c2));
 
         for (Object key : seekBars.keySet()) {
             ((SeekBar)seekBars.get((String) key)).setOnSeekBarChangeListener(this);
         }
 
         switchValues.put("c1", 0);
-        switchValues.put("c2", 0);
+        switchValues.put("c6", 0);
         switchValues.put("c4", 0);
         switchValues.put("c3", 0);
         switchValues.put("flmswitch", 0);
-        switchValues.put("c5", 0);
+        switchValues.put("c2", 0);
 
         ipAddress = (EditText) findViewById(R.id.ipaddress);
 
