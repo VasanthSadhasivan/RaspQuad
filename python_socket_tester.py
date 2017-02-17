@@ -57,10 +57,11 @@ def writeData(data, power):
     elif 'c6' in data:
         print('#9 P'+str((1960*power/180+520))+' T1\n\r')
         for i in range(dictionary['c6'], power):
+            print'#9 P'+str((1960*i/180+520))+' T1\n\r'
             ser.write('#9 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
         ser.write('#9 P'+str((1960*power/180+520))+' T1\n\r')
-        dictionary['c5'] = power
+        dictionary['c6'] = power
 
 while not(internet_on()):
     pass
