@@ -24,7 +24,7 @@ def writeData(data, power):
         for i in range(dictionary['c1'], power):
             ser.write('#1 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
-		for i in range(dictionary['c1'], power, -1):
+        for i in range(dictionary['c1'], power, -1):
             ser.write('#1 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
         ser.write('#1 P'+str((1960*power/180+520))+' T1\n\r')
