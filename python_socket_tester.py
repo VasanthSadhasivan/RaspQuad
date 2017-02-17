@@ -24,11 +24,17 @@ def writeData(data, power):
         for i in range(dictionary['c1'], power):
             ser.write('#1 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
+		for i in range(dictionary['c1'], power, -1):
+            ser.write('#1 P'+str((1960*i/180+520))+' T1\n\r')
+            time.sleep(.005)
         ser.write('#1 P'+str((1960*power/180+520))+' T1\n\r')
         dictionary['c1'] = power
     elif 'c2' in data:
         print('#3 P'+str((1960*power/180+520))+' T1\n\r')
         for i in range(dictionary['c2'], power):
+            ser.write('#3 P'+str((1960*i/180+520))+' T1\n\r')
+            time.sleep(.005)
+        for i in range(dictionary['c2'], power, -1):
             ser.write('#3 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
         ser.write('#3 P'+str((1960*power/180+520))+' T1\n\r')
@@ -38,11 +44,17 @@ def writeData(data, power):
         for i in range(dictionary['c3'], power):
             ser.write('#4 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
+        for i in range(dictionary['c3'], power, -1):
+            ser.write('#4 P'+str((1960*i/180+520))+' T1\n\r')
+            time.sleep(.005)
         ser.write('#4 P'+str((1960*power/180+520))+' T1\n\r')
         dictionary['c3'] = power
     elif 'c4' in data:
         print('#7 P'+str((1960*power/180+520))+' T1\n\r')
         for i in range(dictionary['c4'], power):
+            ser.write('#7 P'+str((1960*i/180+520))+' T1\n\r')
+            time.sleep(.005)
+        for i in range(dictionary['c4'], power, -1):
             ser.write('#7 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
         ser.write('#7 P'+str((1960*power/180+520))+' T1\n\r')
@@ -52,11 +64,18 @@ def writeData(data, power):
         for i in range(dictionary['c5'], power):
             ser.write('#8 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
+        for i in range(dictionary['c5'], power, -1):
+            ser.write('#8 P'+str((1960*i/180+520))+' T1\n\r')
+            time.sleep(.005)
         ser.write('#8 P'+str((1960*power/180+520))+' T1\n\r')
         dictionary['c5'] = power
     elif 'c6' in data:
         print('#9 P'+str((1960*power/180+520))+' T1\n\r')
         for i in range(dictionary['c6'], power):
+            print'#9 P'+str((1960*i/180+520))+' T1\n\r'
+            ser.write('#9 P'+str((1960*i/180+520))+' T1\n\r')
+            time.sleep(.005)
+        for i in range(dictionary['c6'], power, -1):
             print'#9 P'+str((1960*i/180+520))+' T1\n\r'
             ser.write('#9 P'+str((1960*i/180+520))+' T1\n\r')
             time.sleep(.005)
