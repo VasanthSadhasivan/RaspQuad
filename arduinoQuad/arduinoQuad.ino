@@ -1,16 +1,6 @@
-#include <Servo.h>
-
-Servo c1,c2,c3,c4,c5,c6,c7;
+#include <TimerOne.h>
 
 void setup() {
-  Serial.begin(9600);
-  c1.write(0);
-  c2.write(0);
-  c3.write(0);
-  c4.write(0);
-  c5.write(0);
-  c6.write(0);
-  c7.write(0);
 }
 
 void loop() {
@@ -21,24 +11,33 @@ void loop() {
 }
 
 void translateString(String data){
-    String stickName = data.substring(0,data.indexOf(' '));
-    int power = (data.substring(data.indexOf(' '))).toInt();
-    Serial.println(stickName + " " + power);
-    /*switch (stickName){
-      case "c1":
-        c1.write(power);
-      case "c2":
-        c2.write(power);   
-      case "c3":
-        c3.write(power);   
-      case "c4":
-        c4.write(power);   
-      case "c5":
-        c5.write(power);   
-      case "c6":
-        c6.write(power);   
-      case "c7":
-        c7.write(power);   
-    }*/
+    data.replace(" ", "");
+    String stickName = data.substring(0,data.indexOf(','));
+    int power = (data.substring(data.indexOf(',')+1)).toInt();
+    power = power/2;
+    if(data.indexOf("c1")!=-1){
+      Timer1.pwm(3, 51+power, 20000);
+      Serial.println(stickName + " " + power);
+    }
+    else if(data.indexOf("c2")!=-1){
+      Timer1.pwm(5, 51+power, 20000);
+      Serial.println(stickName + " " + power);
+    }
+    else if(data.indexOf("c3")!=-1){
+      Timer1.pwm(6, 51+power, 20000);
+      Serial.println(stickName + " " + power);
+    }
+    else if(data.indexOf("c4")!=-1){
+      Timer1.pwm(9, 51+power, 20000);
+      Serial.println(stickName + " " + power);
+    }
+    else if(data.indexOf("c5")!=-1){
+      Timer1.pwm(10, 51+power, 20000);
+      Serial.println(stickName + " " + power);
+    }
+    else if(data.indexOf("c6")!=-1){
+      Timer1.pwm(11, 51+power, 20000);
+      Serial.println(stickName + " " + power);
+    }
 }
 
