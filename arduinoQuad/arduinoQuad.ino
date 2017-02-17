@@ -1,6 +1,8 @@
 #include <TimerOne.h>
 
 void setup() {
+  Timer1.initialize(20000);
+  Serial.begin(9600);
 }
 
 void loop() {
