@@ -2,7 +2,6 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.*;
-
 /**
  * Created by Admin on 2/18/2017.
  */
@@ -29,12 +28,15 @@ public class JavaCode {
 
     public static void initializeSockets() {
         try {
+	    System.out.println("[+] Starting Server");
             server = new ServerSocket(90);
             client = server.accept();
             input = new DataInputStream(client.getInputStream());
             output = new PrintStream(client.getOutputStream());
+	    System.out.println("[+] Server started");
         }catch(Exception e) {
-            System.out.println(e);
+            System.out.print("[-] Server not started");
+	    e.printStackTrace();
         }
     }
 
@@ -45,12 +47,15 @@ public class JavaCode {
     public static void main ( String[] args ) {
         while(!netIsAvailable()) {
         }
+	System.out.println("[+] Connected to Internet");
         TwoWaySerialComm comm = new TwoWaySerialComm();;
         try{
-            comm.connect("/dev/ttyAMA0");
+            System.out.println("Trying to connect to port");
+            comm.connect("/dev/ttyS80");
         }
         catch ( Exception e ) {
-            System.out.println(e);
+            System.out.print("[-] Port ttyAMA0 not available: ");
+	    e.printStackTrace();
         }
         initializeSockets();
         while(true){
@@ -60,9 +65,11 @@ public class JavaCode {
                 if(data.contains("poweroff"))
                     rt.exec("sudo poweroff");
                 double power = Double.valueOf(data.split(",")[1].replace(" ",""));
-                comm.writeData(data,power);
+                //System.out.println("Data: "+data+"\n Power: "+power);
+		comm.writeData(data,power);
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.print("[-]");
+		e.printStackTrace();
             }
         }
     }

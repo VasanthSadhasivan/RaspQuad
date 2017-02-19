@@ -13,19 +13,19 @@ public class TwoWaySerialComm {
     public Map<String, Double> channels = new HashMap<String, Double>();
     public TwoWaySerialComm() {
         super();
-        channels.put("c1",0.0);
-        channels.put("c2",0.0);
-        channels.put("c3",0.0);
-        channels.put("c4",0.0);
-        channels.put("c5",0.0);
-        channels.put("c6",0.0);
+        channels.put("c1",90.0);
+        channels.put("c2",90.0);
+        channels.put("c3",90.0);
+        channels.put("c4",90.0);
+        channels.put("c5",90.0);
+        channels.put("c6",90.0);
 
     }
 
     void connect ( String portName ) throws Exception {
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if ( portIdentifier.isCurrentlyOwned() ) {
-            System.out.println("Error: Port is currently in use");
+            System.out.println("[-] Error: Port is currently in use");
         }
         else {
             CommPort commPort = portIdentifier.open(this.getClass().getName(),2000);
@@ -42,22 +42,30 @@ public class TwoWaySerialComm {
 
             }
             else {
-                System.out.println("Error: Only serial ports are handled by this example.");
+                System.out.println("[-] Error: Only serial ports are handled by this example.");
             }
         }
     }
 
     public void writeData(String data, double power) throws Exception {
-        int flipper = 1;
         for(int channelNumber=1; channelNumber<=channels.size(); channelNumber++) {
-            if (data.contains("c"+channelNumber)) {
-                if (power < channels.get("c"+channelNumber))
-                    flipper = -1;
-                System.out.println("#"+channelNumber+" P" + (1960.0 * power / 180.0 + 520.0) + " T1\n\r");
-                for (int i = 0; i < ((channels.get("c"+channelNumber) - power) / 2); i += 1 * flipper) {
-                    outputStream.write(("#"+channelNumber+" P" + (1960 * i * 2 / 180 + 520) + " T1\n\r").getBytes());
-                    Thread.sleep(1);
-                }
+	    if (data.contains("c"+channelNumber)) {
+                if (power < channels.get("c"+channelNumber)){
+		    System.out.println("Power< Channel");
+                    for (int i = channels.get("c"+channelNumber).intValue(); i > power; i += -2) {
+		    	//System.out.println(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r"));
+		    	outputStream.write(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r").getBytes());
+                    	Thread.sleep(1);
+                    }
+		}else{
+		    System.out.println("Power> Channel");
+                    for (int i = channels.get("c"+channelNumber).intValue(); i < power; i += 2) {
+                        //System.out.println(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r"));
+                        outputStream.write(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r").getBytes());
+                        Thread.sleep(1);
+                    }
+
+		}
                 channels.put("c"+channelNumber, power);
                 return;
             }
@@ -82,6 +90,7 @@ public class TwoWaySerialComm {
                 }
             }
             catch ( IOException e ) {
+		System.out.print("[-]");
                 e.printStackTrace();
             }
         }
@@ -104,6 +113,7 @@ public class TwoWaySerialComm {
                 }
             }
             catch ( IOException e ) {
+		System.out.print("[-]");
                 e.printStackTrace();
             }
         }
