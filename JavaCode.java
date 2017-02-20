@@ -7,7 +7,7 @@ import java.net.*;
  */
 public class JavaCode {
 
-
+    public static boolean debugging = true;
     public static ServerSocket server;
     public static Socket client;
     public static DataInputStream input;
@@ -28,15 +28,19 @@ public class JavaCode {
 
     public static void initializeSockets() {
         try {
-	    System.out.println("[+] Starting Server");
+            if(debugging)
+	            System.err.println("[+] Starting Server");
             server = new ServerSocket(90);
             client = server.accept();
             input = new DataInputStream(client.getInputStream());
             output = new PrintStream(client.getOutputStream());
-	    System.out.println("[+] Server started");
+            if(debugging)
+                System.err.println("[+] Server started");
         }catch(Exception e) {
-            System.out.print("[-] Server not started");
-	    e.printStackTrace();
+            if(debugging) {
+                System.err.print("[-] Server not started");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -47,15 +51,19 @@ public class JavaCode {
     public static void main ( String[] args ) {
         while(!netIsAvailable()) {
         }
-	System.out.println("[+] Connected to Internet");
+        if(debugging)
+            System.err.println("[+] Connected to Internet");
         TwoWaySerialComm comm = new TwoWaySerialComm();;
         try{
-            System.out.println("Trying to connect to port");
+            if(debugging)
+                System.err.println("Trying to connect to port");
             comm.connect("/dev/ttyS80");
         }
         catch ( Exception e ) {
-            System.out.print("[-] Port ttyAMA0 not available: ");
-	    e.printStackTrace();
+            if(debugging) {
+                System.err.print("[-] Port ttyAMA0 not available: ");
+                e.printStackTrace();
+            }
         }
         initializeSockets();
         while(true){
@@ -65,11 +73,13 @@ public class JavaCode {
                 if(data.contains("poweroff"))
                     rt.exec("sudo poweroff");
                 double power = Double.valueOf(data.split(",")[1].replace(" ",""));
-                //System.out.println("Data: "+data+"\n Power: "+power);
-		comm.writeData(data,power);
+                //System.err.println("Data: "+data+"\n Power: "+power);
+		        comm.writeData(data,power);
             } catch (Exception e) {
-                System.out.print("[-]");
-		e.printStackTrace();
+                if(debugging) {
+                    System.err.print("[-]");
+                    e.printStackTrace();
+                }
             }
         }
     }
