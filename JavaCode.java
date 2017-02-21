@@ -10,7 +10,7 @@ public class JavaCode {
     public static boolean debugging = true;
     public static ServerSocket server;
     public static Socket client;
-    public static DataInputStream input;
+    public static BufferedReader input;
     public static PrintStream output;
     public static Runtime rt = Runtime.getRuntime();
     public static boolean netIsAvailable() {
@@ -32,7 +32,7 @@ public class JavaCode {
 	            System.err.println("[+] Starting Server");
             server = new ServerSocket(90);
             client = server.accept();
-            input = new DataInputStream(client.getInputStream());
+            input = new BufferedReader(new InputStreamReader(client.getInputStream()));
             output = new PrintStream(client.getOutputStream());
             if(debugging)
                 System.err.println("[+] Server started");
@@ -66,9 +66,16 @@ public class JavaCode {
             }
         }
         initializeSockets();
-        while(true){
+        while(true) {
             try {
-                String data = input.readLine();
+				String data;
+				while(true) {
+					String tempData = input.readLine();
+					if(tempData)
+						data = tempData;
+					else
+						break;
+				}
                 data = removePadding(data.replace("\n",""));
                 if(data.contains("poweroff"))
                     rt.exec("sudo poweroff");
