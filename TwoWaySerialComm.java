@@ -53,6 +53,7 @@ public class TwoWaySerialComm {
 	        if (data.contains("c"+channelNumber)) {
 	            if(Math.abs(channels.get("c"+channelNumber)-power)<3){
                     outputStream.write(("#"+channelNumber+" P" + (1960 * power / 180 + 520) + " T1\n\r").getBytes());
+                    channels.put("c"+channelNumber, power);
                     return;
                 }
                 if (power < channels.get("c"+channelNumber)){
