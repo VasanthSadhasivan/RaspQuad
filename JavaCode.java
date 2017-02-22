@@ -67,9 +67,7 @@ public class JavaCode {
         while(true) {
             String data="";
             try {
-                while(input.ready()){
-                    data = input.readLine();
-                }
+                data = input.readLine();
                 if(!data.equals("")) {
                     data = removePadding(data.replace("\n", ""));
                     if (data.contains("poweroff"))

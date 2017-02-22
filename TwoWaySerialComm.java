@@ -50,23 +50,25 @@ public class TwoWaySerialComm {
 
     public void writeData(String data, double power) throws Exception {
         for(int channelNumber=1; channelNumber<=channels.size(); channelNumber++) {
-	    if (data.contains("c"+channelNumber)) {
+	        if (data.contains("c"+channelNumber)) {
+	            if(Math.abs(channels.get("c"+channelNumber)-power)<3){
+                    outputStream.write(("#"+channelNumber+" P" + (1960 * power / 180 + 520) + " T1\n\r").getBytes());
+                    return;
+                }
                 if (power < channels.get("c"+channelNumber)){
                     if(debugging)
                         System.out.println("Power< Channel");
-                    for (int i = channels.get("c"+channelNumber).intValue(); i > power; i += -2) {
+                    for (int i = channels.get("c"+channelNumber).intValue(); i > power; i += -3) {
 		    	        //System.out.println(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r"));
 		    	        outputStream.write(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r").getBytes());
-                    	Thread.sleep(1);
                     }
 		        }
 		        else {
                     if(debugging)
                         System.out.println("Power> Channel");
-                    for (int i = channels.get("c"+channelNumber).intValue(); i < power; i += 2) {
+                    for (int i = channels.get("c"+channelNumber).intValue(); i < power; i += 3) {
                         //System.out.println(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r"));
                         outputStream.write(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r").getBytes());
-                        Thread.sleep(1);
                     }
 
 		        }
