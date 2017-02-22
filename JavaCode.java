@@ -70,7 +70,7 @@ public class JavaCode {
                 while(input.ready()){
                     data = input.readLine();
                 }
-                if(!input.ready()) {
+                if(!data.equals("")) {
                     data = removePadding(data.replace("\n", ""));
                     if (data.contains("poweroff"))
                         rt.exec("sudo poweroff");
