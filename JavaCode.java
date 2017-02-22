@@ -67,13 +67,7 @@ public class JavaCode {
         while(true) {
             String data="";
             try {
-				while(true) {
-					String tempData = input.readLine();
-					if(tempData != null || !(tempData.equals("")))
-						data = tempData;
-					else
-						break;
-				}
+                data = input.readLine();
                 data = removePadding(data.replace("\n",""));
                 if(data.contains("poweroff"))
                     rt.exec("sudo poweroff");
