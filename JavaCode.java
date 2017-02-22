@@ -1,6 +1,4 @@
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.*;
 /**
  * Created by Admin on 2/18/2017.
@@ -67,11 +65,11 @@ public class JavaCode {
         }
         initializeSockets();
         while(true) {
+            String data="";
             try {
-				String data;
 				while(true) {
 					String tempData = input.readLine();
-					if(tempData)
+					if(tempData != null || !(tempData.equals("")))
 						data = tempData;
 					else
 						break;
