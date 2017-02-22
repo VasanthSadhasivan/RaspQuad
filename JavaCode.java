@@ -70,12 +70,14 @@ public class JavaCode {
                 while(input.ready()){
                     data = input.readLine();
                 }
-                data = removePadding(data.replace("\n",""));
-                if(data.contains("poweroff"))
-                    rt.exec("sudo poweroff");
-                double power = Double.valueOf(data.split(",")[1].replace(" ",""));
-                //System.err.println("Data: "+data+"\n Power: "+power);
-		        comm.writeData(data,power);
+                if(!input.ready()) {
+                    data = removePadding(data.replace("\n", ""));
+                    if (data.contains("poweroff"))
+                        rt.exec("sudo poweroff");
+                    double power = Double.valueOf(data.split(",")[1].replace(" ", ""));
+                    //System.err.println("Data: "+data+"\n Power: "+power);
+                    comm.writeData(data, power);
+                }
             } catch (Exception e) {
                 if(debugging) {
                     System.err.print("[-]");
