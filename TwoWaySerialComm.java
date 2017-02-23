@@ -36,7 +36,6 @@ public class TwoWaySerialComm {
                 SerialPort serialPort = (SerialPort) commPort;
                 serialPort.setSerialPortParams(115200,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
 
-                InputStream in = serialPort.getInputStream();
                 OutputStream out = serialPort.getOutputStream();
                 outputStream=out;
             }
@@ -71,7 +70,6 @@ public class TwoWaySerialComm {
                         //System.out.println(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r"));
                         outputStream.write(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r").getBytes());
                     }
-
 		        }
                 channels.put("c"+channelNumber, power);
                 return;

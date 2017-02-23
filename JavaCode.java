@@ -48,6 +48,7 @@ public class JavaCode {
 
     public static void main ( String[] args ) {
         while(!netIsAvailable()) {
+            
         }
         if(debugging)
             System.err.println("[+] Connected to Internet");
