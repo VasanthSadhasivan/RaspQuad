@@ -8,8 +8,11 @@ public class JavaCode {
     public static boolean debugging = true;
     public static ServerSocket server;
     public static Socket client;
+    public static DatagramSocket serverSocket;
+    public static byte[] receiveData = new byte[20];
     public static BufferedReader input;
     public static PrintStream output;
+
     public static Runtime rt = Runtime.getRuntime();
     public static boolean netIsAvailable() {
         try {
@@ -42,13 +45,16 @@ public class JavaCode {
         }
     }
 
+    public static void initializeUdpSockets() throws SocketException {
+        serverSocket = new DatagramSocket(800);
+    }
+
     public static String removePadding(String data){
         return data.replace("*","");
     }
 
-    public static void main ( String[] args ) {
+    public static void mainOld ( String[] args ) {
         while(!netIsAvailable()) {
-            
         }
         if(debugging)
             System.err.println("[+] Connected to Internet");
@@ -84,5 +90,42 @@ public class JavaCode {
                 }
             }
         }
+    }
+
+    public static void main (String[] args){
+        while(!netIsAvailable()) {
+        }
+        if(debugging)
+            System.err.println("[+] Connected to Internet");
+        TwoWaySerialComm comm = new TwoWaySerialComm();;
+        try{
+            if(debugging)
+                System.err.println("Trying to connect to port");
+            comm.connect("/dev/ttyS80");
+        }
+        catch ( Exception e ) {
+            if(debugging) {
+                System.err.print("[-] Port ttyAMA0 not available: ");
+                e.printStackTrace();
+            }
+        }
+        try {
+            initializeUdpSockets();
+            while (true) {
+                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                serverSocket.receive(receivePacket);
+                String data = new String(receivePacket.getData());
+                data = removePadding(data.replace("\n", ""));
+                if (!data.equals("")) {
+                    if (data.contains("poweroff"))
+                        rt.exec("sudo poweroff");
+                    double power = Double.valueOf(data.split(",")[1].replace(" ", ""));
+                    comm.writeData(data, power);
+                }
+            }
+        }catch (Exception e){
+
+        }
+
     }
 }

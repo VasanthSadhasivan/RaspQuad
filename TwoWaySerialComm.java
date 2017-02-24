@@ -1,7 +1,7 @@
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -59,18 +59,14 @@ public class TwoWaySerialComm {
                     if(debugging)
                         System.out.println("Power< Channel");
                     for (int i = channels.get("c"+channelNumber).intValue(); i > power; i += -2) {
-		    	        //System.out.println(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r"));
 		    	        outputStream.write(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r").getBytes());
-                    		//Thread.sleep(1);
-		    }
+		            }
 		        }
 		        else {
                     if(debugging)
                         System.out.println("Power> Channel");
                     for (int i = channels.get("c"+channelNumber).intValue(); i < power; i += 2) {
-                        //System.out.println(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r"));
                         outputStream.write(("#"+channelNumber+" P" + (1960 * i / 180 + 520) + " T1\n\r").getBytes());
-                    	//Thread.sleep(1);
 		    }
 		        }
                 channels.put("c"+channelNumber, power);
